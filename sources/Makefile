@@ -77,14 +77,14 @@ LDFLAGS +=	-g3
 # -static
 # -pg
 
-SRC_C= batman.c originator.c hna.c schedule.c plugin.c list-batman.c allocate.c avl.c profile.c control.c metrics.c posix/posix.c posix/tunnel.c linux/route.c 
+SRC_C= batman.c originator.c hna.c schedule.c plugin.c list-batman.c allocate.c avl.c profile.c control.c metrics.c posix/posix.c posix/tunnel.c linux/route.c
 SRC_H= batman.h originator.h hna.h schedule.h plugin.h list-batman.h allocate.h avl.h profile.h control.h metrics.h vis-types.h os.h
 OBJS=  $(SRC_C:.c=.o)
 
 SBINDIR =       $(INSTALL_PREFIX)/usr/sbin
 BINARY_NAME=	bmxd
 
-all:	
+all:
 	$(MAKE) $(BINARY_NAME)
 	# further make targets: help, libs, build_all, strip[_libs|_all], install[_libs|_all], clean[_libs|_all]
 
@@ -104,7 +104,7 @@ $(BINARY_NAME):	$(OBJS) Makefile
 
 
 strip:	all
-	strip $(BINARY_NAME) 
+	strip $(BINARY_NAME)
 
 strip_libs: all libs
 	$(MAKE) -C lib strip
@@ -120,7 +120,7 @@ install_libs:
 	$(MAKE) -C lib install
 
 
-	
+
 clean:
 	rm -f $(BINARY_NAME) *.o posix/*.o linux/*.o
 

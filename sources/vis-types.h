@@ -21,9 +21,7 @@
  */
 
 
-#include <stdint.h> 
-
-
+#include <stdint.h>
 
 
 #define DATA_TYPE_NEIGH 1
