@@ -24,7 +24,6 @@
 #if defined PROFILE_DATA
 
 
-
 enum {
 	PROF_all,
  PROF_ipStr,
@@ -68,7 +67,7 @@ void prof_print( struct ctrl_node *cn );
 void init_profile( void );
 
 
-#else 
+#else
 
 #define prof_init( ... )
 #define prof_start( ... )
@@ -77,4 +76,3 @@ void init_profile( void );
 #define init_profile( ... )
 
 #endif
-

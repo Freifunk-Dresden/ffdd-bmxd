@@ -56,7 +56,7 @@ CFLAGS += -DREVISION_VERSION=$(REVISION_VERSION)
 # -DTESTDEBUG		(testing syntax of __VA_ARGS__ dbg...() macros)
 # -DWITHUNUSED		(includes yet unused stuff)
 
-EXTRA_CFLAGS += -DNODEPRECATED -DNOVIS 
+EXTRA_CFLAGS += -DNODEPRECATED -DNOVIS
 
 LDFLAGS +=	-Wl,-export-dynamic -ldl -g3
 # -static
@@ -101,7 +101,7 @@ IPKG_DEPENDS=	"kmod-tun"
 SNAPSHOT_DIR=	../bmx-snapshots
 
 
-all:	
+all:
 	$(MAKE) $(BINARY_NAME)
 	# further make targets: help, libs, build_all, strip[_libs|_all], install[_libs|_all], clean[_libs|_all]
 
@@ -121,7 +121,7 @@ $(BINARY_NAME):	$(OBJS) Makefile
 
 
 strip:	all
-	strip $(BINARY_NAME) 
+	strip $(BINARY_NAME)
 
 strip_libs: all libs
 	$(MAKE) -C lib strip
@@ -137,7 +137,7 @@ install_libs:
 	$(MAKE) -C lib install
 
 
-	
+
 clean:
 	rm -f $(BINARY_NAME) *.o posix/*.o linux/*.o
 
@@ -160,4 +160,3 @@ help:
 	# strip / strip_libs / strip_all	strip    bmxd / plugins / all
 	# install / install_libs / install_all	install  bmxd / plugins / all
 	# clean / clean_libs / clean_all	clean    bmxd / libs / all
-

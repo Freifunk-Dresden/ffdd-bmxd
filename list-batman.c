@@ -17,10 +17,7 @@
  *
  */
 
-
-
 #include "list-batman.h"
-
 
 
 /*
