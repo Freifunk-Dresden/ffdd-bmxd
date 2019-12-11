@@ -17,6 +17,8 @@
  *
  */
 
+
+
 #ifndef _BATMAN_BATMAN_H
 #define _BATMAN_BATMAN_H
 
@@ -791,6 +793,9 @@ struct srv_orig_data {
 struct plugin_v1 *srv_get_plugin_v1( void );
 
 #endif /*NOSRV*/
+
+
+
 
 
 #endif /* _BATMAN_BATMAN_H */

@@ -442,7 +442,7 @@ add_dev_tun_error:
 		dbg( DBGL_SYS, DBGT_ERR, "can't ioctl %d tun device %s: %s", req, tun_dev, strerror(errno) );
 
 	if ( fd > -1 )
-		del_dev_tun( fd, tun_dev, tun_addr, __FUNCTION__ );
+		del_dev_tun( fd, tun_dev, tun_addr, __func__ );
 
 	if ( tmp_fd > -1 )
 		close( tmp_fd );
@@ -1120,7 +1120,7 @@ static void gwc_cleanup( void ) {
 		}
 
 		if ( gwc_args->tun_fd ) {
-			del_dev_tun( gwc_args->tun_fd, gwc_args->tun_dev, gwc_args->my_tun_addr, __FUNCTION__ );
+			del_dev_tun( gwc_args->tun_fd, gwc_args->tun_dev, gwc_args->my_tun_addr, __func__ );
 			set_fd_hook( gwc_args->tun_fd, gwc_recv_tun, YES /*delete*/ );
 		}
 
@@ -1634,7 +1634,7 @@ static void gws_cleanup( void ) {
 			               0, 0, gws_args->tun_ifi, gws_args->tun_dev, 254, RTN_UNICAST, DEL, TRACK_TUNNEL );
 
 		if ( gws_args->tun_fd ) {
-			del_dev_tun( gws_args->tun_fd, gws_args->tun_dev, gws_args->my_tun_ip, __FUNCTION__ );
+			del_dev_tun( gws_args->tun_fd, gws_args->tun_dev, gws_args->my_tun_ip, __func__ );
 			set_fd_hook( gws_args->tun_fd, gws_recv_tun, YES /*delete*/ );
 		}
 
@@ -2331,4 +2331,6 @@ struct plugin_v1 *tun_get_plugin_v1( void ) {
 
 }
 
+
 #endif
+

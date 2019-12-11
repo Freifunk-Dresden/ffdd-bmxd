@@ -17,6 +17,7 @@
  *
  */
 
+
 #define MIN_UPTIME 0
 #define MAX_UPTIME 2147383 /*(((TP32/1000)/2)-100) /1000 to talk about seconds and not ms, /2 to not render scheduled events outdated, -100 to be save */
 #define DEF_UPTIME 0
@@ -114,17 +115,17 @@ struct dbg_histogram {
 #ifdef  NODEBUGALL
 #define dbgf_all(...) {;}
 #else
-#define dbgf_all( dbgt, ... ); do { if ( __dbgf_all() ) { _dbgf_all( dbgt, __FUNCTION__, __VA_ARGS__ ); } } while (0)
+#define dbgf_all( dbgt, ... ); do { if ( __dbgf_all() ) { _dbgf_all( dbgt, __func__, __VA_ARGS__ ); } } while (0)
 #endif
 
 #ifdef EXTDEBUG
-#define dbgf_ext( dbgt, ... ); do { if ( __dbgf_all() ) { _dbgf_all( dbgt, __FUNCTION__, __VA_ARGS__ ); } } while (0)
+#define dbgf_ext( dbgt, ... ); do { if ( __dbgf_all() ) { _dbgf_all( dbgt, __func__, __VA_ARGS__ ); } } while (0)
 #else
 #define dbgf_ext(...) {;}
 #endif
 
-#define dbgf( dbgl, dbgt, ...); _dbgf( dbgl, dbgt, __FUNCTION__, __VA_ARGS__ );
-#define dbgf_cn( cn, dbgl, dbgt, ...); _dbgf_cn( cn, dbgl, dbgt, __FUNCTION__, __VA_ARGS__ );
+#define dbgf( dbgl, dbgt, ...); _dbgf( dbgl, dbgt, __func__, __VA_ARGS__ );
+#define dbgf_cn( cn, dbgl, dbgt, ...); _dbgf_cn( cn, dbgl, dbgt, __func__, __VA_ARGS__ );
 
 void dbg ( int8_t dbgl, int8_t dbgt, char *last, ... );
 void _dbgf ( int8_t dbgl, int8_t dbgt, char const *f, char *last, ... );

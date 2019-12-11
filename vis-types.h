@@ -20,7 +20,9 @@
  *
  */
 
+
 #include <stdint.h>
+
 
 #define DATA_TYPE_NEIGH 1
 #define DATA_TYPE_SEC_IF 2

@@ -2144,3 +2144,4 @@ void init_originator( void ) {
 	register_options_array( originator_options, sizeof( originator_options ) );
 
 }
+
