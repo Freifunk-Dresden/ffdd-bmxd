@@ -149,6 +149,8 @@ static SIMPEL_LIST( gw_list );
 
 
 
+
+
 #ifdef STEPHAN_ENABLE_TWT
 struct tun_request_type {
 	uint32_t lease_ip;
@@ -277,6 +279,8 @@ struct tun_orig_data {
 	struct ext_packet tun_array[];
 
 };
+
+
 
 
 
@@ -1365,6 +1369,8 @@ gwc_init_failure:
 
 
 
+
+
 #ifdef STEPHAN_ENABLE_TWT
 
 static void gws_cleanup_leased_tun_ips( uint32_t lt, struct gw_client **gw_client_list, uint32_t my_tun_ip, uint32_t my_tun_netmask ) {
@@ -2419,3 +2425,4 @@ struct plugin_v1 *tun_get_plugin_v1( void ) {
 
 
 #endif
+

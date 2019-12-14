@@ -40,7 +40,7 @@
 #include "schedule.h"
 //#include "avl.h"
 
-#define timercpy(d, a) do { (d)->tv_sec = (a)->tv_sec; (d)->tv_usec = (a)->tv_usec; } while(0)
+# define timercpy(d, a) (d)->tv_sec = (a)->tv_sec; (d)->tv_usec = (a)->tv_usec;
 
 static int8_t stop = 0;
 
@@ -536,3 +536,5 @@ int main( int argc, char *argv[] ) {
 
 	return -1;
 }
+
+

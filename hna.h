@@ -17,6 +17,7 @@
  *
  */
 
+
 #ifndef NOHNA
 
 #define ARG_UHNA		"unicast_hna"
@@ -31,6 +32,7 @@
 #define A_TYPE_MAX       0x01
 
 
+
 struct hna_netmask_type
 {
 #if __BYTE_ORDER == __LITTLE_ENDIAN
@@ -43,6 +45,7 @@ struct hna_netmask_type
 # error "Please fix <bits/endian.h>"
 #endif
 } __attribute__((packed));
+
 
 
 #define EXT_HNA_FIELD_TYPE    nt.atype
