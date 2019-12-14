@@ -21,7 +21,7 @@
 #define _BATMAN_OS_H
 
 
-# define timercpy(d, a) do { (d)->tv_sec = (a)->tv_sec; (d)->tv_usec = (a)->tv_usec; } while(0)
+#define timercpy(d, a) do { (d)->tv_sec = (a)->tv_sec; (d)->tv_usec = (a)->tv_usec; } while(0)
 
 
 /* posix.c */
@@ -52,7 +52,7 @@ void cleanup_all( int status );
 #ifdef NOPARANOIA
 #define paranoia( ... )
 #else
-#define paranoia( code , problem ); do { if ( problem ) { cleanup_all( code ); } }while(0)
+#define paranoia( code , problem ) do { if ( problem ) { cleanup_all( code ); } } while(0)
 #endif
 
 
