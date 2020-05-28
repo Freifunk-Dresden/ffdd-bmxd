@@ -16,8 +16,10 @@
 # 02110-1301, USA
 #
 
-REVISION = $(shell { export LC_ALL=C; find . -type f ! -iname "Makefile" -exec wc -c {} \; | sort; echo; find . -type f ! -iname "Makefile" -exec md5sum {} + | sort; echo; find . -type d | sort; find . -type d | sort | md5sum; } | md5sum | sed -e 's/^\(.\{10\}\).*/\1/')
+REVISION = $(shell export LC_ALL=POSIX; tar -Pcf /tmp/ffdd-bmxd.tar.gz --exclude '.git' . | sha1sum | sed -e 's/^\(.\{10\}\).*/\1/')
 REVISION_VERSION =\"-src:[$(REVISION)]\"
+# write REVISION in tmp file to use it in package build
+$(shell echo $(REVISION) > /tmp/bmxd_revision)
 
 
 CFLAGS += -pedantic -Wall -W -Wno-unused-parameter -Os -g3 -std=gnu99 -I./
