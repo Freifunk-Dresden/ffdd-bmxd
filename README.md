@@ -1,9 +1,10 @@
-# bmxd - Freifunk-Dresden
+# ffdd_bmxd
+bmxd - Freifunk-Dresden
 
 This is the modified version of B.A.T.M.A.N Experimental (BMX) originally created by
 Copyright (C) 2007 Axel Neumann <axel (at) open-mesh.net>
 
-Any modifification are made by
+Any modifification of this sources are made by
 Copyright (c) 2007-2022 Stephan Enderlein <Freifunk Dresden>
 
 The work is licensed under:
@@ -23,8 +24,5 @@ The modification includes:
 The development of experimental version of bmx was abandoned a long time ago by  Axel Neumann
 but used by Freifunk Dresden. Since then the sources are modified to fit requirements
 for Freifunk Dresden network.
-
-Sources are extracted from firmware repository of Freifunk Dresden
-
 
 
