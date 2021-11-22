@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-test ! -d build && mkdir build ; cd build
+
+CURDIR="$PWD"
+
+BUILD_DIR="/tmp/build_bmxd"
+
+mkdir -p $BUILD_DIR ; cd BUILD_DIR
 
 git clone https://github.com/ddmesh/ffdd-bmxd.git bmxd
 cd bmxd || exit 1
@@ -30,6 +35,14 @@ sed -i "s/VERSION/$VERSION/g" DEBIAN/control
 sed -i "s/REVISION/$REVISION/g" DEBIAN/control
 md5sum "$(find . -type f | grep -v '^[.]/DEBIAN/')" > DEBIAN/md5sums
 
-dpkg-deb --build ./ ../../bmxd-"$VERSION"-"$REVISION"_"$ARCH".deb
+eval $(cat /etc/os-release)
+deb_name="bmxd-${VERSION}-${REVISION}_${VERSION_CODENAME}_${ARCH}.deb"
+dpkg-deb --build ./ ../../$deb_name
+
+# copy back package
+
+RESULT_DIR="${CURDIR}/packages/${ID}-${VERSION_ID}-${VERSION_CODENAME}"
+mkdir -p ${RESULT_DIR}
+cp ../../$deb_name ${RESULT_DIR}/
 
 exit 0
