@@ -58,7 +58,7 @@ sed -i "s/REVISION/$BMXD_REVISION/g" DEBIAN/control
 md5sum "$(find . -type f | grep -v '^[.]/DEBIAN/')" > DEBIAN/md5sums
 
 eval $(cat /etc/os-release)
-deb_name="bmxd-${BMXD_VERSION}-${BMXD_REVISION}_${VERSION_CODENAME}_${BMXD_ARCH}.deb"
+deb_name="bmxd-${BMXD_VERSION}-${BMXD_REVISION}-${ID}-${VERSION_CODENAME}-${BMXD_ARCH}.deb"
 echo dpkg-deb --build ./ ${PACKAGE_DIR}/$deb_name
 dpkg-deb --build ./ ${PACKAGE_DIR}/$deb_name
 
