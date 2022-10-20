@@ -42,7 +42,7 @@ chmod 555 DEBIAN/*
 
 BMXD_ARCH='amd64'
 BMXD_VERSION="$(awk '/SOURCE_VERSION/ {print $3}' batman.h | head -1 | sed -e 's/^"//' -e 's/"$//' -e 's/-freifunk-dresden//')"
-BMXD_SOURCE_MD5="$(md5sum *.[ch] linux/*.[cp] posix/*.[cp] Makefile | md5sum | cut -d' ' -f1)"
+BMXD_SOURCE_MD5="$(md5sum *.[ch] Makefile | md5sum | cut -d' ' -f1)"
 BMXD_REVISION="${BMXD_SOURCE_MD5}"
 
 # package directories and files
