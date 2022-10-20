@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-#REPO="https://github.com/freifunk-dresden/ffdd-bmxd.git"
+REPO="https://github.com/freifunk-dresden/ffdd-bmxd.git"
 #BRANCH="latest_server"
-
-REPO="https://github.com/ddmesh/ffdd-bmxd.git"
 BRANCH="master"
 
 # args: user and group ids are used to correct access rights of generated
@@ -22,6 +20,7 @@ PACKAGE_DIR="${CURDIR}/packages"
 BUILD_DIR="/tmp/build_bmxd"
 
 # prepare directories
+test -d ${PACKAGE_DIR} && rm -rf ${BUILD_DIR}
 mkdir -p ${PACKAGE_DIR}
 mkdir -p ${BUILD_DIR}
 
@@ -32,6 +31,7 @@ git clone ${REPO} bmxd
 # build bmxd
 cd ${BUILD_DIR}/bmxd/sources || exit 1
 git checkout ${BRANCH}
+git branch -av
 
 make clean
 make

@@ -7,8 +7,10 @@ unset DOCKER_HOST
 cd $(dirname $0)
 curdir="$(pwd)"
 
+# --- ubuntu 22.04 hat noch fehler beim bauen
+# for linux in ubuntu:20.04 ubuntu:22.04 debian:10 debian:11
 
-for linux in ubuntu:20.04 ubuntu:22.04 debian:10 debian:11
+for linux in ubuntu:20.04 debian:10 debian:11
 do
   name="${linux/:/_}"
 
