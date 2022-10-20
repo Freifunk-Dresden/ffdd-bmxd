@@ -8,7 +8,7 @@ cd $(dirname $0)
 curdir="$(pwd)"
 
 
-for linux in ubuntu:18.04 ubuntu:20.04 debian:9 debian:10 debian:11
+for linux in ubuntu:20.04 ubuntu:22.04 debian:10 debian:11
 do
   name="${linux/:/_}"
 
