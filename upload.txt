@@ -1,0 +1,9 @@
+PORT=
+VERSION="1.2-7e90273293649e046a67dbada9de629d"
+
+scp -P ${PORT} packages/bmxd-${VERSION}-debian-buster-amd64.deb root@download.freifunk-dresden.de:/var/www/files/server/packages/debian10/
+scp -P ${PORT} packages/bmxd-${VERSION}-debian-bullseye-amd64.deb  root@download.freifunk-dresden.de:/var/www/files/server/packages/debian11/
+
+# ubuntu 22 nutzt die gleichen pakete wie ubuntu20, da es bei ubuntu22 compile fehler gibt
+scp -P ${PORT} packages/bmxd-${VERSION}-ubuntu-focal-amd64.deb   root@download.freifunk-dresden.de:/var/www/files/server/packages/ubuntu20/
+scp -P ${PORT} packages/bmxd-${VERSION}-ubuntu-focal-amd64.deb   root@download.freifunk-dresden.de:/var/www/files/server/packages/ubuntu22/bmxd-${VERSION}-ubuntu-jammy-amd64.deb
