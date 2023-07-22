@@ -286,7 +286,7 @@ static struct neigh_node *update_orig(struct orig_node *on, uint16_t *oCtx, stru
 		on->last_decided_sqn = ogm->ogm_seqno;
 		*oCtx |= IS_BEST_NEIGH_AND_NOT_BROADCASTED;
 		changed = YES;
-		dbgf_all(3, DBGT_INFO, "%s, (1) IS_BEST_NEIGH_AND_NOT_BROADCASTED, ogm_seqno=%d, RXB=%d, RCB=%d, LCB=%d, last_decided_sqn=%d, my_rcnt_fk=%d", on->orig_str, ogm->ogm_seqno, RXB, RCB, LCB, on->last_decided_sqn, my_rcnt_fk);
+		dbgf_all(3, DBGT_INFO, "%s, (A) IS_BEST_NEIGH_AND_NOT_BROADCASTED, ogm_seqno=%d, RXB=%d, RCB=%d, LCB=%d, last_decided_sqn=%d, my_rcnt_fk=%d", on->orig_str, ogm->ogm_seqno, RXB, RCB, LCB, on->last_decided_sqn, my_rcnt_fk);
 		//wenn ogm ueber gleiche route (ip) kommt.
 	}
 	else if ((curr_rt == incm_rt) &&
@@ -305,7 +305,7 @@ static struct neigh_node *update_orig(struct orig_node *on, uint16_t *oCtx, stru
 	{
 		on->last_decided_sqn = ogm->ogm_seqno;
 		*oCtx |= IS_BEST_NEIGH_AND_NOT_BROADCASTED;
-		dbgf_all(3, DBGT_INFO, "%s, (2) IS_BEST_NEIGH_AND_NOT_BROADCASTED, ogm_seqno=%d, RXB=%d, RCB=%d, LCB=%d, last_decided_sqn=%d, my_rcnt_fk=%d", on->orig_str, ogm->ogm_seqno, RXB, RCB, LCB, on->last_decided_sqn, my_rcnt_fk);
+		dbgf_all(3, DBGT_INFO, "%s, (B) IS_BEST_NEIGH_AND_NOT_BROADCASTED, ogm_seqno=%d, RXB=%d, RCB=%d, LCB=%d, last_decided_sqn=%d, my_rcnt_fk=%d", on->orig_str, ogm->ogm_seqno, RXB, RCB, LCB, on->last_decided_sqn, my_rcnt_fk);
 	}
 
 	if (changed && !LCB)
@@ -973,9 +973,12 @@ void purge_orig(batman_time_t curr_time, struct batman_if *bif)
 	{
 		orig_ip = orig_node->orig;
 
-		dbgf_all(0, DBGT_INFO, "%llu %s %s", (unsigned long long)curr_time, bif ? bif->dev : "???", orig_node->orig_str);
+		purge_old = ((orig_node->last_aware + (1000 * ((batman_time_t)purge_to))) < curr_time) ? 1 : 0;
 
-		purge_old = (orig_node->last_aware + (1000 * ((batman_time_t)purge_to))) < curr_time ? 1 : 0;
+//		dbgf_all(0, DBGT_INFO, "cur: %llu last: %llu bif: %s ori: %s purge_to: %llu purge_old: %d",
+//		  (unsigned long long)curr_time, (unsigned long long) orig_node->last_aware,
+//			bif ? bif->dev : "???", orig_node->orig_str, (1000 * ((batman_time_t)purge_to)),
+//			purge_old	);
 
 		// purge_orig(0, NULL)  - flush all ifaces
 		// purge_orig(0, bif)   - flush specific iface
@@ -985,8 +988,8 @@ void purge_orig(batman_time_t curr_time, struct batman_if *bif)
 		{
 			/* purge outdated originators completely */
 
-//dbg(DBGL_SYS, DBGT_INFO, "originator timeout: %s, last_valid %llu, last_aware %llu",
-//							 orig_node->orig_str, (unsigned long long)orig_node->last_valid_time, (unsigned long long)orig_node->last_aware);
+			dbgf_all(1, DBGT_INFO, "originator timeout -> purge %s, last_valid %llu",
+							 orig_node->orig_str, (unsigned long long)orig_node->last_valid_time);
 
 			flush_orig(orig_node, bif);
 
@@ -1333,6 +1336,7 @@ void process_ogm(struct msg_buff *mb)
 	if (orig_node_neigh->link_node)
 		lndev = get_lndev(orig_node_neigh->link_node, iif, NO /*create*/);
 
+  //meine eigene ogm ist zurueck gekommen, somit kann ich jetzt rtq brechnen (link quality)
 	if (oCtx & IS_MY_ORIG)
 	{
 		update_rtq_link(orig_node_neigh, oCtx, mb, iif, ogm, lndev);
@@ -1466,7 +1470,7 @@ void process_ogm(struct msg_buff *mb)
 	{
 		dbgf_all(2, DBGT_INFO, //as long as incoming link is not bidirectional,...
 						 "new_rt %s for %s is zero or differs from installed rt %s  "
-						 "(old_rt %s  rcvd vi %s %s",
+						 "(old_rt %s  rcvd via %s %s",
 						 ipStr(new_router ? new_router->key.addr : 0),
 						 orig_node->orig_str,
 						 ipStr(orig_node->router ? orig_node->router->key.addr : 0),
@@ -1690,7 +1694,7 @@ static int32_t opt_dev_show(uint8_t cmd, uint8_t _save, struct opt_type *opt, st
 						 ipStr(bif->if_broad),
 						 bif->if_seqno,
 						 bif->if_ttl,
-						 bif->if_singlehomed ? "singlehomed" : "multihomed",
+						 bif->if_hide_interface ? "hide" : "visible",
 						 bif->if_active ? "active" : "inactive",
 						 bif == primary_if ? "primary" : "non-primary");
 		}
@@ -1799,7 +1803,7 @@ static int32_t opt_dev(uint8_t cmd, uint8_t _save, struct opt_type *opt, struct 
 			bif->if_ttl_conf = -1;
 			bif->if_send_clones_conf = -1;
 			bif->if_linklayer_conf = -1;
-			bif->if_singlehomed_conf = -1;
+			bif->if_hide_interface_conf = -1;
 		}
 
 		if (cmd == OPT_CHECK)
@@ -1826,7 +1830,7 @@ static int32_t opt_dev(uint8_t cmd, uint8_t _save, struct opt_type *opt, struct 
 			}
 			else if (!strcmp(c->c_opt->long_name, ARG_DEV_HIDE))
 			{
-				bif->if_singlehomed_conf = val;
+				bif->if_hide_interface_conf = val;
 			}
 
 			bif->if_conf_soft_changed = YES;
@@ -1983,7 +1987,7 @@ static struct opt_type originator_options[] =
 
 //SE: network filter; can be set dynamically
 				{ODI, 5, 0, ARG_NETW, 0, A_PS1, A_ADM, A_INI|A_DYN, A_CFA, A_ANY, 0, 0, 0, 0, opt_netw,
-		 			ARG_PREFIX_FORM, "community network. sets default community route\n"},
+		 			ARG_PREFIX_FORM, "community network. Packets with ip addresses of this network which are not known are sent to the same node which is used for internet gateway\n"},
 
 				{ODI, 5, 0, ARG_NETWORK_ID, 0, A_PS1, A_ADM, A_INI|A_DYN, A_CFA, A_ANY, &gNetworkId, MIN_NETWORK_ID, MAX_NETWORK_ID, DEF_NETWORK_ID, 0,
 				 ARG_VALUE_FORM, "set network ID"},
