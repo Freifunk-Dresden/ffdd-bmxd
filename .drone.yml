@@ -34,7 +34,7 @@ steps:
 - name: ffdd-debian11-clear
   image: debian:11
   commands:
-    - cd /drone; test -d /drone/src && rm -r /drone/src
+    - test -d /drone/src/packages && rm -r /drone/src/packages
 
 
 - name: ffdd-debian12-build
@@ -62,7 +62,7 @@ steps:
 - name: ffdd-debian12-clear
   image: debian:12
   commands:
-    - cd /drone; test -d /drone/src && rm -r /drone/src
+    - test -d /drone/src/packages && rm -r /drone/src/packages
 
 
 - name: ffdd-ubuntu2004-build
@@ -90,7 +90,7 @@ steps:
 - name: ffdd-ubuntu2004-clear
   image: ubuntu:20.04
   commands:
-    - cd /drone; test -d /drone/src && rm -r /drone/src
+    - test -d /drone/src/packages && rm -r /drone/src/packages
 
 
 - name: ffdd-ubuntu2204-build
@@ -118,4 +118,4 @@ steps:
 - name: ffdd-ubuntu2204-clear
   image: ubuntu:22.04
   commands:
-    - cd /drone; test -d /drone/src && rm -r /drone/src
+    - test -d /drone/src/packages && rm -r /drone/src/packages
