@@ -46,7 +46,6 @@ else
 	echo "dryrun..."
 fi
 
-${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-debian-buster-amd64.deb ${TARGET}/debian10/
 ${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-debian-bullseye-amd64.deb  ${TARGET}/debian11/
 ${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-debian-bookworm-amd64.deb  ${TARGET}/debian12/
 

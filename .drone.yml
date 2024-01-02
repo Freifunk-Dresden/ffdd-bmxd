@@ -1,0 +1,121 @@
+---
+kind: pipeline
+name: ffdd-bmxd-ci
+
+platform:
+  os: linux
+  arch: amd64
+
+
+steps:
+
+- name: ffdd-debian11-build
+  image: debian:11
+  commands:
+    - bash ./tools/install-deps.sh
+    - bash ./tools/build-bmxd-deb.sh $(id -u) $(id -g)
+
+- name: ffdd-debian11-deploy
+  image: drillster/drone-rsync
+  settings:
+    hosts:
+      from_secret: HOST
+    port:
+      from_secret: PORT
+    key:
+      from_secret: SSH_PRIVATE_KEY
+    user:
+      from_secret: USER
+    source: /drone/src/packages/bmxd-*bullseye-amd64.deb
+    target: /var/www/files/server/packages/debian11/
+    recursive: false
+    delete: false
+
+- name: ffdd-debian11-clear
+  image: debian:11
+  commands:
+    - cd /drone; test -d /drone/src && rm -r /drone/src
+
+
+- name: ffdd-debian12-build
+  image: debian:12
+  commands:
+    - bash ./tools/install-deps.sh
+    - bash ./tools/build-bmxd-deb.sh $(id -u) $(id -g)
+
+- name: ffdd-debian12-deploy
+  image: drillster/drone-rsync
+  settings:
+    hosts:
+      from_secret: HOST
+    port:
+      from_secret: PORT
+    key:
+      from_secret: SSH_PRIVATE_KEY
+    user:
+      from_secret: USER
+    source: /drone/src/packages/bmxd-*bookworm-amd64.deb
+    target: /var/www/files/server/packages/debian12/
+    recursive: false
+    delete: false
+
+- name: ffdd-debian12-clear
+  image: debian:12
+  commands:
+    - cd /drone; test -d /drone/src && rm -r /drone/src
+
+
+- name: ffdd-ubuntu2004-build
+  image: ubuntu:20.04
+  commands:
+    - bash ./tools/install-deps.sh
+    - bash ./tools/build-bmxd-deb.sh $(id -u) $(id -g)
+
+- name: ffdd-ubuntu2004-deploy
+  image: drillster/drone-rsync
+  settings:
+    hosts:
+      from_secret: HOST
+    port:
+      from_secret: PORT
+    key:
+      from_secret: SSH_PRIVATE_KEY
+    user:
+      from_secret: USER
+    source: /drone/src/packages/bmxd-*jammy-amd64.deb
+    target: /var/www/files/server/packages/ubuntu20/
+    recursive: false
+    delete: false
+
+- name: ffdd-ubuntu2004-clear
+  image: ubuntu:20.04
+  commands:
+    - cd /drone; test -d /drone/src && rm -r /drone/src
+
+
+- name: ffdd-ubuntu2204-build
+  image: ubuntu:22.04
+  commands:
+    - bash ./tools/install-deps.sh
+    - bash ./tools/build-bmxd-deb.sh $(id -u) $(id -g)
+
+- name: ffdd-ubuntu2204-deploy
+  image: drillster/drone-rsync
+  settings:
+    hosts:
+      from_secret: HOST
+    port:
+      from_secret: PORT
+    key:
+      from_secret: SSH_PRIVATE_KEY
+    user:
+      from_secret: USER
+    source: /drone/src/packages/bmxd-*focal-amd64.deb
+    target: /var/www/files/server/packages/ubuntu22/
+    recursive: false
+    delete: false
+
+- name: ffdd-ubuntu2204-clear
+  image: ubuntu:22.04
+  commands:
+    - cd /drone; test -d /drone/src && rm -r /drone/src
