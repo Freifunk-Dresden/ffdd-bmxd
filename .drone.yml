@@ -82,7 +82,7 @@ steps:
       from_secret: SSH_PRIVATE_KEY
     user:
       from_secret: USER
-    source: /drone/src/packages/bmxd-*jammy-amd64.deb
+    source: /drone/src/packages/bmxd-*focal-amd64.deb
     target: /var/www/files/server/packages/ubuntu20/
     recursive: false
     delete: false
@@ -110,7 +110,7 @@ steps:
       from_secret: SSH_PRIVATE_KEY
     user:
       from_secret: USER
-    source: /drone/src/packages/bmxd-*focal-amd64.deb
+    source: /drone/src/packages/bmxd-*jammy-amd64.deb
     target: /var/www/files/server/packages/ubuntu22/
     recursive: false
     delete: false
