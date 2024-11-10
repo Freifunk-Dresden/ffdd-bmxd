@@ -65,6 +65,7 @@ steps:
     - test -d /drone/src/packages && rm -r /drone/src/packages
 
 
+
 - name: ffdd-ubuntu2004-build
   image: ubuntu:20.04
   commands:
@@ -117,5 +118,33 @@ steps:
 
 - name: ffdd-ubuntu2204-clear
   image: ubuntu:22.04
+  commands:
+    - test -d /drone/src/packages && rm -r /drone/src/packages
+
+
+- name: ffdd-ubuntu2404-build
+  image: ubuntu:24.04
+  commands:
+    - bash ./tools/install-deps.sh
+    - bash ./tools/build-bmxd-deb.sh $(id -u) $(id -g)
+
+- name: ffdd-ubuntu2404-deploy
+  image: drillster/drone-rsync
+  settings:
+    hosts:
+      from_secret: HOST
+    port:
+      from_secret: PORT
+    key:
+      from_secret: SSH_PRIVATE_KEY
+    user:
+      from_secret: USER
+    source: /drone/src/packages/bmxd-*noble-amd64.deb
+    target: /var/www/files/server/packages/ubuntu24/
+    recursive: false
+    delete: false
+
+- name: ffdd-ubuntu2404-clear
+  image: ubuntu:24.04
   commands:
     - test -d /drone/src/packages && rm -r /drone/src/packages
