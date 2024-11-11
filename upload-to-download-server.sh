@@ -49,6 +49,7 @@ fi
 ${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-debian-bullseye-amd64.deb  ${TARGET}/debian11/
 ${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-debian-bookworm-amd64.deb  ${TARGET}/debian12/
 
-# ubuntu 22 nutzt die gleichen pakete wie ubuntu20, da es bei ubuntu22 compile fehler gibt
 ${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-ubuntu-focal-amd64.deb   ${TARGET}/ubuntu20/
+# ubuntu 22 nutzt die gleichen pakete wie ubuntu20, da es bei ubuntu22 compile fehler gibt
 ${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-ubuntu-focal-amd64.deb   ${TARGET}/ubuntu22/bmxd-${VERSION}-ubuntu-jammy-amd64.deb
+${DRYRUN} scp -P ${PORT} packages/bmxd-${VERSION}-ubuntu-noble-amd64.deb   ${TARGET}/ubuntu24/
